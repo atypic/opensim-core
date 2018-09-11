@@ -451,7 +451,8 @@ if(${BUILD_PYTHON_WRAPPING})
     else()
         message(FATAL_ERROR "OPENSIM_PYTHON_VERSION should be '2' or '3'.")
     endif()
-    find_package(PythonInterp ${required_python_version} REQUIRED)
+    #find_package(PythonInterp ${required_python_version} REQUIRED)
+    find_package(Python3 REQUIRED)
 
     # We update the python install dir to include the python version,
     # now that we know it. We replace the token "VERSION" with the actual python
@@ -487,7 +488,7 @@ if(${BUILD_PYTHON_WRAPPING})
             "${python_prefix}/lib/libpython${python_version_majmin}.dylib"
             CACHE FILEPATH "${pylib_desc}")
     endif()
-    find_package(PythonLibs ${required_python_version} REQUIRED)
+    find_package(PythonLibs REQUIRED)
 
 endif()
 

@@ -573,7 +573,6 @@ void Manager::setIntegratorAccuracy(double accuracy)
         msg += " does not support error control.";
         OPENSIM_THROW(Exception, msg);
     }
-
     _integ->setAccuracy(accuracy);
 }
 
