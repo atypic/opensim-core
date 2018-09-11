@@ -1,4 +1,4 @@
-
+message("WATTAFAKK")
 # Location of the opensim python package in the build directory, for testing.
 if(MSVC OR XCODE)
     # Multi-configuration generators like MSVC and XCODE use one build tree for
@@ -70,6 +70,7 @@ macro(OpenSimAddPythonModule)
             -I${OpenSim_SOURCE_DIR}
             -I${OpenSim_SOURCE_DIR}/Bindings/
             -I${Simbody_INCLUDE_DIR}
+            -I${Python3_INCLUDE_DIRS}
             ${SWIG_FLAGS}
             ${_interface_file}
             )
@@ -124,12 +125,13 @@ macro(OpenSimAddPythonModule)
     add_library(${_libname} SHARED ${_output_cxx_file} ${_output_header_file})
 
     #target_include_directories(${_libname} PRIVATE ${PYTHON_INCLUDE_PATH})
-    target_include_directories(${_libname} PRIVATE ${PYTHON_INCLUDE_DIRS})
+    target_include_directories(${_libname} PRIVATE ${Python3_INCLUDE_DIRS})
+    message("including", ${Python3_INCLUDE_DIRS})
     #target_include_directories(${_libname} PRIVATE "/usr/include/python3.7m")
     #target_include_directories(${_libname} PRIVATE ${PYTHON_FORCE_INCLUDE})
     
     target_link_libraries(${_libname}
-        osimTools osimExampleComponents ${PYTHON_LIBRARIES})
+        osimTools osimExampleComponents ${Python3_LIBRARIES})
     
     # Set target properties for various platforms.
     # --------------------------------------------

@@ -452,12 +452,16 @@ if(${BUILD_PYTHON_WRAPPING})
         message(FATAL_ERROR "OPENSIM_PYTHON_VERSION should be '2' or '3'.")
     endif()
     #find_package(PythonInterp ${required_python_version} REQUIRED)
-    find_package(Python3 REQUIRED)
+    #   find_package(Python3 REQUIRED)
+    find_package (Python3 COMPONENTS Interpreter Development)
+
 
     # We update the python install dir to include the python version,
     # now that we know it. We replace the token "VERSION" with the actual python
     # version.
-    set(python_version_majmin "${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}")
+    set(python_version_majmin "${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}")
+    message("VERSION FOUND: ", ${python_version_majmin})
+
     string(REPLACE "VERSION" "${python_version_majmin}"
         OPENSIM_INSTALL_PYTHONDIR "${OPENSIM_INSTALL_PYTHONDIR}")
     # This must be done before adding the OpenSim libraries, since
@@ -488,7 +492,7 @@ if(${BUILD_PYTHON_WRAPPING})
             "${python_prefix}/lib/libpython${python_version_majmin}.dylib"
             CACHE FILEPATH "${pylib_desc}")
     endif()
-    find_package(PythonLibs REQUIRED)
+    #find_package(PythonLibs REQUIRED)
 
 endif()
 
@@ -832,6 +836,7 @@ add_subdirectory(OpenSim)
 if(NOT BUILD_API_ONLY)
     add_subdirectory(Applications)
 endif()
+message("BINDINGS")
 add_subdirectory(Bindings)
 
 add_subdirectory(cmake)
